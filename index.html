@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Test für Valentina & Tobi</title>
+
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy2: #13283d;
+    --green: #2f6b55;
+    --green2: #4f8f70;
+    --gold: #d8b36a;
+    --white: #ffffff;
+    --muted: #9eacb8;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--white);
+
+    background:
+      radial-gradient(circle at 15% 10%, rgba(79,143,112,.25), transparent 30%),
+      radial-gradient(circle at 90% 80%, rgba(216,179,106,.16), transparent 28%),
+      linear-gradient(135deg, var(--navy), #08131f 70%);
+  }
+
+  .app {
+    width: min(920px, 92%);
+    margin: 0 auto;
+    padding: 35px 0 60px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: .78rem;
+    font-weight: 700;
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    margin: 8px 0;
+    line-height: 1;
+  }
+
+  .progress-wrap {
+    margin: 25px 0;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: .85rem;
+    margin-bottom: 8px;
+  }
+
+  .progress {
+    height: 7px;
+    background: rgba(255,255,255,.1);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--green2), var(--gold));
+    border-radius: 99px;
+    transition: width .5s ease;
+  }
+
+  .card {
+    background: rgba(255,255,255,.065);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 24px;
+    padding: clamp(22px, 5vw, 42px);
+    box-shadow: 0 25px 80px rgba(0,0,0,.28);
+    backdrop-filter: blur(12px);
+  }
+
+  .part-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .part-number {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-weight: 800;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 1.8rem;
+  }
+
+  .question {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+
+  .question:first-of-type {
+    border-top: 0;
+  }
+
+  label.question-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 11px;
+    line-height: 1.45;
+  }
+
+  .number {
+    color: var(--gold);
+    margin-right: 6px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(0,0,0,.18);
+    color: white;
+    border-radius: 12px;
+    padding: 14px 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: .2s;
+  }
+
+  input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(216,179,106,.12);
+  }
+
+  .options {
+    display: grid;
+    gap: 10px;
+  }
+
+  .option {
+    position: relative;
+  }
+
+  .option input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .option label {
+    display: block;
+    padding: 13px 15px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.14);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .option label:hover {
+    border-color: rgba(216,179,106,.65);
+  }
+
+  .option input:checked + label {
+    background: rgba(79,143,112,.3);
+    border-color: var(--green2);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    border: 0;
+    border-radius: 12px;
+    padding: 14px 22px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s, opacity .2s;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+  }
+
+  .primary {
+    color: #101a22;
+    background: linear-gradient(135deg, var(--gold), #efd18e);
+    box-shadow: 0 8px 25px rgba(216,179,106,.2);
+  }
+
+  .secondary {
+    color: white;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.12);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* Analyse */
+
+  .analysis {
+    text-align: center;
+    padding: 30px 5px 10px;
+  }
+
+  .scanner {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 25px;
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid rgba(216,179,106,.45);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .scanner::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    top: -5px;
+    background: var(--gold);
+    box-shadow: 0 0 18px 5px rgba(216,179,106,.55);
+    animation: scan 1.2s infinite ease-in-out;
+  }
+
+  .scanner span {
+    font-size: 3rem;
+    color: var(--gold);
+    font-family: Georgia, serif;
+  }
+
+  @keyframes scan {
+    0%, 100% {
+      top: -5px;
+    }
+
+    50% {
+      top: calc(100% + 1px);
+    }
+  }
+
+  .dots::after {
+    content: "";
+    animation: dots 1.2s infinite;
+  }
+
+  @keyframes dots {
+    0% {
+      content: "";
+    }
+
+    33% {
+      content: ".";
+    }
+
+    66% {
+      content: "..";
+    }
+
+    100% {
+      content: "...";
+    }
+  }
+
+  /* Ergebnis */
+
+  .result {
+    text-align: center;
+    animation: appear .8s ease;
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .result-ring {
+    width: 220px;
+    height: 220px;
+    margin: 10px auto 25px;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background:
+      radial-gradient(circle, var(--navy) 62%, transparent 63%),
+      conic-gradient(var(--gold) 0deg 360deg, transparent 360deg);
+
+    box-shadow: 0 0 50px rgba(216,179,106,.18);
+    position: relative;
+  }
+
+  .result-ring::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(216,179,106,.4);
+  }
+
+  .percentage {
+    font-size: 3.7rem;
+    font-weight: 900;
+    color: var(--gold);
+    position: relative;
+    z-index: 2;
+  }
+
+  .result h2 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    margin-bottom: 20px;
+  }
+
+  .result-message {
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .stamp {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 8px 14px;
+    border: 1px solid var(--green2);
+    border-radius: 99px;
+    color: #bfe4cf;
+    background: rgba(79,143,112,.12);
+    font-size: .8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .app {
+      padding-top: 24px;
+    }
+
+    .card {
+      border-radius: 18px;
+    }
+
+    .buttons button {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="eyebrow">Valentina & Tobi</div>
+    <h1>Der ultimative Test für Valentina & Tobi</h1>
+  </header>
+
+
+  <!-- =========================================================
+       TEIL 1 – TOBIAS
+       FRAGEN KÖNNEN HIER EINFACH GELÖSCHT ODER ERGÄNZT WERDEN.
+       ========================================================= -->
+
+  <div class="progress-wrap">
+    <div class="progress-info">
+      <span id="progressLabel">Teil 1 von 2</span>
+      <span id="progressPercent">50 %</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+
+  <section class="card" id="part1">
+
+    <div class="part-title">
+      <div class="part-number">1</div>
+      <h2>Fragen über Tobi</h2>
+    </div>
+
+    <div id="tobiasQuestions"></div>
+
+    <div class="buttons">
+      <button class="primary" onclick="goToPart2()">
+        Weiter zu Valentina
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       TEIL 2 – VALENTINA
+       FRAGEN KÖNNEN HIER EINFACH GELÖSCHT ODER ERGÄNZT WERDEN.
+       ========================================================= -->
+
+  <section class="card hidden" id="part2">
+
+    <div class="part-title">
+      <div class="part-number">2</div>
+      <h2>Fragen über Valentina</h2>
+    </div>
+
+    <div id="valentinaQuestions"></div>
+
+    <div class="buttons">
+
+      <button class="secondary" onclick="goToPart1()">
+        Zurück
+      </button>
+
+      <button class="primary" onclick="startAnalysis()">
+        Kompatibilität berechnen
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       ANALYSE
+       ========================================================= -->
+
+  <section class="card hidden" id="analysis">
+
+    <div class="analysis">
+
+      <div class="scanner">
+        <span>♥</span>
+      </div>
+
+      <h2>
+        Die Daten werden ausgelesen<span class="dots"></span>
+      </h2>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       ERGEBNIS
+       ========================================================= -->
+
+  <section class="card hidden" id="result">
+
+    <div class="result">
+
+      <div class="result-ring">
+
+        <div class="percentage">
+          100%
+        </div>
+
+      </div>
+
+      <h2>
+        Glückwunsch!
+      </h2>
+
+      <p class="result-message">
+        Du bist zu <strong style="color: var(--gold);">100 %</strong>
+        mit Valentina kompatibel.
+        <br><br>
+        Dir ist es nun offiziell erlaubt,
+        unsere Tante zu heiraten.
+      </p>
+
+      <div class="stamp">
+        Kompatibilität bestätigt
+      </div>
+
+      <div class="buttons" style="justify-content:center;">
+
+        <button class="primary" onclick="location.reload()">
+          Nochmal testen
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+/* ================================================================
+   FRAGEN ÜBER TOBI
+   ----------------------------------------------------------------
+   Wenn du eine Frage löschen willst, lösche einfach den jeweiligen
+   Block zwischen { und }.
+
+   Beispiel:
+
+   {
+     type: "text",
+     question: "Deine Frage?",
+     placeholder: "Deine Antwort"
+   },
+
+   ================================================================ */
+
+const tobiasQuestions = [
+
+  {
+    type: "text",
+    question: "Wie groß bist du ungefähr?",
+    placeholder: "z. B. 1,90 m"
+  },
+
+  {
+    type: "text",
+    question: "Welche Schuhgröße hast du?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Welches Instrument spielst du?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Welche Sprachen kannst du?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Wie viele Geschwister hast du?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Welcher Fußballverein ist dein Lieblingsverein?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Was sind deine Lieblingsfarben?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "An welchem Tag hast du Geburtstag?",
+    placeholder: "z. B. 5. April"
+  }
+
+];
+
+
+/* ================================================================
+   FRAGEN ÜBER VALENTINA
+   ================================================================ */
+
+const valentinaQuestions = [
+
+  {
+    type: "text",
+    question: "Was mag Valentina lieber: Strandurlaub oder Städtetrip?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "choice",
+    question: "Was war Valentinas erstes Wort?",
+    options: [
+      "Flugzeug",
+      "Klavier",
+      "Unterhose"
+    ]
+  },
+
+  {
+    type: "text",
+    question: "Welchen Beruf wollte Valentina als Kind haben?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Wer hat sich zuerst verliebt?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Was war eure schönste gemeinsame Reise?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Welches Kleid hatte Valentina an, als du sie zum ersten Mal gesehen hast?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Wer von euch ist romantischer?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Was ist das Schönste, das er je für dich gemacht hat?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "choice",
+    question: "Was war Valentinas Antwort beim Heiratsantrag?",
+    options: [
+      "Ja",
+      "OK",
+      "Klar!"
+    ]
+  },
+
+  {
+    type: "text",
+    question: "Was ist Valentinas Lieblingsessen?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Was bringt Valentina fast immer zum Lachen?",
+    placeholder: "Deine Antwort"
+  },
+
+  {
+    type: "text",
+    question: "Was ist eine Sache, die Valentina überhaupt nicht leiden kann?",
+    placeholder: "Deine Antwort"
+  }
+
+];
+
+
+/* ================================================================
+   AB HIER MUSS NORMALERWEISE NICHTS GEÄNDERT WERDEN.
+   ================================================================ */
+
+
+function renderQuestions(containerId, questions, prefix) {
+
+  const container = document.getElementById(containerId);
+
+  questions.forEach((q, index) => {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "question";
+
+
+    const title = document.createElement("label");
+
+    title.className = "question-title";
+
+    title.innerHTML =
+      `<span class="number">${index + 1}.</span>${q.question}`;
+
+    wrapper.appendChild(title);
+
+
+    if (q.type === "choice") {
+
+      const options = document.createElement("div");
+
+      options.className = "options";
+
+
+      q.options.forEach((option, optionIndex) => {
+
+        const id =
+          `${prefix}-${index}-${optionIndex}`;
+
+        const div =
+          document.createElement("div");
+
+        div.className = "option";
+
+        div.innerHTML = `
+          <input
+            type="radio"
+            id="${id}"
+            name="${prefix}-${index}"
+            value="${option}"
+          >
+
+          <label for="${id}">
+            ${option}
+          </label>
+        `;
+
+        options.appendChild(div);
+
+      });
+
+      wrapper.appendChild(options);
+
+    } else {
+
+      const input =
+        document.createElement("input");
+
+      input.type =
+        q.type === "number"
+          ? "number"
+          : "text";
+
+      input.placeholder =
+        q.placeholder || "";
+
+      input.name =
+        `${prefix}-${index}`;
+
+      wrapper.appendChild(input);
+
+    }
+
+    container.appendChild(wrapper);
+
+  });
+
+}
+
+
+renderQuestions(
+  "tobiasQuestions",
+  tobiasQuestions,
+  "tobias"
+);
+
+
+renderQuestions(
+  "valentinaQuestions",
+  valentinaQuestions,
+  "valentina"
+);
+
+
+/* ================================================================
+   TEIL 1 → TEIL 2
+   ================================================================ */
+
+function goToPart2() {
+
+  document
+    .getElementById("part1")
+    .classList.add("hidden");
+
+  document
+    .getElementById("part2")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("progressBar")
+    .style.width = "100%";
+
+  document
+    .getElementById("progressLabel")
+    .textContent = "Teil 2 von 2";
+
+  document
+    .getElementById("progressPercent")
+    .textContent = "100 %";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* ================================================================
+   ZURÜCK ZU TEIL 1
+   ================================================================ */
+
+function goToPart1() {
+
+  document
+    .getElementById("part2")
+    .classList.add("hidden");
+
+  document
+    .getElementById("part1")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("progressBar")
+    .style.width = "50%";
+
+  document
+    .getElementById("progressLabel")
+    .textContent = "Teil 1 von 2";
+
+  document
+    .getElementById("progressPercent")
+    .textContent = "50 %";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* ================================================================
+   KOMPATIBILITÄTSBERECHNUNG
+   ----------------------------------------------------------------
+   Die Antworten werden NICHT bewertet.
+   Das Ergebnis ist immer 100 %.
+   ================================================================ */
+
+function startAnalysis() {
+
+  document
+    .getElementById("part2")
+    .classList.add("hidden");
+
+  document
+    .getElementById("analysis")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("progressBar")
+    .style.width = "100%";
+
+  document
+    .getElementById("progressLabel")
+    .textContent = "Analyse läuft...";
+
+  document
+    .getElementById("progressPercent")
+    .textContent = "100 %";
+
+
+  setTimeout(() => {
+
+    document
+      .getElementById("analysis")
+      .classList.add("hidden");
+
+    document
+      .getElementById("result")
+      .classList.remove("hidden");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }, 4000);
+
+}
+
+</script>
+
+</body>
+  </html>
