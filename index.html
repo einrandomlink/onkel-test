@@ -3,163 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Der Test für Valentina & Tobi</title>
+
 
 <style>
   :root {
-    --navy: #0d1b2a;
-    --navy2: #13283d;
-    --green: #2f6b55;
-    --green2: #4f8f70;
-    --gold: #d8b36a;
-    --white: #ffffff;
-    --muted: #9eacb8;
+    --background: #f4f1eb;
+    --paper: #fffdf9;
+    --ink: #252522;
+    --muted: #77736b;
+    --line: #ddd8ce;
+    --green: #405b4b;
+    --green-dark: #304538;
+    --gold: #ad8950;
+    --gold-light: #d8c39d;
   }
 
   * {
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: var(--white);
-
-    background:
-      radial-gradient(circle at 15% 10%, rgba(79,143,112,.25), transparent 30%),
-      radial-gradient(circle at 90% 80%, rgba(216,179,106,.16), transparent 28%),
-      linear-gradient(135deg, var(--navy), #08131f 70%);
+    background: var(--background);
+    color: var(--ink);
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
   }
 
   .app {
-    width: min(920px, 92%);
+    width: min(820px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 35px 0 60px;
+    padding: 42px 0 70px;
   }
+
+  /* =========================
+     HEADER
+     ========================= */
 
   header {
     text-align: center;
-    margin-bottom: 28px;
+    padding: 18px 0 36px;
   }
 
   .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     color: var(--gold);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-size: .78rem;
+    font-size: .72rem;
     font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--gold-light);
   }
 
   h1 {
-    font-family: Georgia, serif;
-    font-size: clamp(2.2rem, 7vw, 4.5rem);
-    margin: 8px 0;
-    line-height: 1;
+    max-width: 700px;
+    margin: 18px auto 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 7vw, 4.4rem);
+    line-height: .98;
+    letter-spacing: -1.5px;
   }
 
+  /* =========================
+     PROGRESS
+     ========================= */
+
   .progress-wrap {
-    margin: 25px 0;
+    margin: 0 0 28px;
   }
 
   .progress-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
     color: var(--muted);
-    font-size: .85rem;
-    margin-bottom: 8px;
+    font-size: .78rem;
+    font-weight: 600;
   }
 
   .progress {
-    height: 7px;
-    background: rgba(255,255,255,.1);
-    border-radius: 99px;
+    height: 3px;
+    background: var(--line);
     overflow: hidden;
   }
 
   .progress-bar {
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, var(--green2), var(--gold));
-    border-radius: 99px;
-    transition: width .5s ease;
+    background: var(--green);
+    transition: width .35s ease;
   }
 
+  /* =========================
+     CARD
+     ========================= */
+
   .card {
-    background: rgba(255,255,255,.065);
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 24px;
-    padding: clamp(22px, 5vw, 42px);
-    box-shadow: 0 25px 80px rgba(0,0,0,.28);
-    backdrop-filter: blur(12px);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: clamp(24px, 5vw, 48px);
+    box-shadow: 0 12px 35px rgba(40, 35, 25, .06);
   }
 
   .part-title {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 16px;
+    padding-bottom: 25px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--line);
   }
 
   .part-number {
-    width: 45px;
-    height: 45px;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
     display: grid;
     place-items: center;
-    border-radius: 50%;
-    background: var(--green);
-    color: white;
-    font-weight: 800;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
   }
 
   h2 {
     margin: 0;
-    font-family: Georgia, serif;
-    font-size: 1.8rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.55rem, 4vw, 2rem);
+    font-weight: 400;
   }
+
+  /* =========================
+     QUESTIONS
+     ========================= */
 
   .question {
-    padding: 20px 0;
-    border-top: 1px solid rgba(255,255,255,.1);
+    padding: 23px 0;
+    border-bottom: 1px solid var(--line);
   }
 
-  .question:first-of-type {
-    border-top: 0;
+  .question:last-child {
+    border-bottom: 0;
   }
 
   label.question-title {
     display: block;
-    font-weight: 700;
-    margin-bottom: 11px;
-    line-height: 1.45;
+    margin-bottom: 12px;
+    font-size: .97rem;
+    font-weight: 650;
+    line-height: 1.5;
   }
 
   .number {
     color: var(--gold);
-    margin-right: 6px;
+    margin-right: 8px;
+    font-family: Georgia, serif;
   }
 
   input[type="text"],
   input[type="number"] {
     width: 100%;
-    border: 1px solid rgba(255,255,255,.16);
-    background: rgba(0,0,0,.18);
-    color: white;
-    border-radius: 12px;
-    padding: 14px 15px;
-    font-size: 1rem;
+    padding: 13px 14px;
+    border: 1px solid #ccc7bc;
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: .95rem;
     outline: none;
-    transition: .2s;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  input::placeholder {
+    color: #aaa69e;
   }
 
   input:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(216,179,106,.12);
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(64, 91, 75, .08);
   }
+
+  /* =========================
+     CHOICE BUTTONS
+     ========================= */
 
   .options {
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .option {
@@ -169,109 +220,132 @@
   .option input {
     position: absolute;
     opacity: 0;
+    pointer-events: none;
   }
 
   .option label {
     display: block;
-    padding: 13px 15px;
-    border: 1px solid rgba(255,255,255,.14);
-    background: rgba(0,0,0,.14);
-    border-radius: 12px;
+    padding: 12px 14px;
+    border: 1px solid #ccc7bc;
+    border-radius: 4px;
+    background: #fff;
     cursor: pointer;
-    transition: .2s;
+    font-size: .94rem;
+    transition:
+      background .18s,
+      border-color .18s,
+      color .18s;
   }
 
   .option label:hover {
-    border-color: rgba(216,179,106,.65);
+    border-color: var(--green);
   }
 
   .option input:checked + label {
-    background: rgba(79,143,112,.3);
-    border-color: var(--green2);
+    border-color: var(--green);
+    background: var(--green);
+    color: white;
   }
+
+  /* =========================
+     BUTTONS
+     ========================= */
 
   .buttons {
     display: flex;
-    gap: 12px;
     justify-content: flex-end;
+    gap: 10px;
     margin-top: 30px;
     flex-wrap: wrap;
   }
 
   button {
     border: 0;
-    border-radius: 12px;
-    padding: 14px 22px;
-    font-size: 1rem;
-    font-weight: 800;
+    border-radius: 4px;
+    padding: 12px 19px;
+    font: inherit;
+    font-size: .88rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform .15s, box-shadow .2s, opacity .2s;
+    transition:
+      background .18s,
+      color .18s,
+      border-color .18s;
   }
 
   button:hover {
-    transform: translateY(-2px);
+    transform: none;
   }
 
   .primary {
-    color: #101a22;
-    background: linear-gradient(135deg, var(--gold), #efd18e);
-    box-shadow: 0 8px 25px rgba(216,179,106,.2);
+    color: white;
+    background: var(--green);
+  }
+
+  .primary:hover {
+    background: var(--green-dark);
   }
 
   .secondary {
-    color: white;
-    background: rgba(255,255,255,.09);
-    border: 1px solid rgba(255,255,255,.12);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
   }
 
-  .hidden {
-    display: none !important;
+  .secondary:hover {
+    border-color: #aaa49a;
+    background: #f8f5ef;
   }
 
-  /* Analyse */
+  /* =========================
+     ANALYSE
+     ========================= */
 
   .analysis {
     text-align: center;
-    padding: 30px 5px 10px;
+    padding: 45px 10px;
   }
 
   .scanner {
-    width: 150px;
-    height: 150px;
+    width: 90px;
+    height: 90px;
     margin: 0 auto 25px;
     position: relative;
-    border-radius: 50%;
-    border: 2px solid rgba(216,179,106,.45);
     display: grid;
     place-items: center;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
     overflow: hidden;
   }
 
   .scanner::before {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 4px;
-    top: -5px;
+    left: 14px;
+    right: 14px;
+    height: 1px;
     background: var(--gold);
-    box-shadow: 0 0 18px 5px rgba(216,179,106,.55);
-    animation: scan 1.2s infinite ease-in-out;
+    animation: scan 1.5s infinite ease-in-out;
   }
 
   .scanner span {
-    font-size: 3rem;
     color: var(--gold);
     font-family: Georgia, serif;
+    font-size: 2rem;
   }
 
   @keyframes scan {
     0%, 100% {
-      top: -5px;
+      top: 20px;
     }
 
     50% {
-      top: calc(100% + 1px);
+      top: 69px;
     }
+  }
+
+  .analysis h2 {
+    font-size: 1.5rem;
   }
 
   .dots::after {
@@ -280,112 +354,151 @@
   }
 
   @keyframes dots {
-    0% {
-      content: "";
-    }
-
-    33% {
-      content: ".";
-    }
-
-    66% {
-      content: "..";
-    }
-
-    100% {
-      content: "...";
-    }
+    0% { content: ""; }
+    33% { content: "."; }
+    66% { content: ".."; }
+    100% { content: "..."; }
   }
 
-  /* Ergebnis */
+  /* =========================
+     RESULT
+     ========================= */
 
   .result {
     text-align: center;
-    animation: appear .8s ease;
+    animation: appear .5s ease;
   }
 
   @keyframes appear {
     from {
       opacity: 0;
-      transform: translateY(20px) scale(.97);
+      transform: translateY(8px);
     }
 
     to {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
   }
 
   .result-ring {
-    width: 220px;
-    height: 220px;
-    margin: 10px auto 25px;
+    width: 180px;
+    height: 180px;
+    margin: 5px auto 30px;
     border-radius: 50%;
-
     display: grid;
     place-items: center;
-
-    background:
-      radial-gradient(circle, var(--navy) 62%, transparent 63%),
-      conic-gradient(var(--gold) 0deg 360deg, transparent 360deg);
-
-    box-shadow: 0 0 50px rgba(216,179,106,.18);
+    border: 1px solid var(--gold);
     position: relative;
   }
 
-  .result-ring::after {
+  .result-ring::before {
     content: "";
     position: absolute;
-    inset: 8px;
+    inset: 7px;
+    border: 1px solid var(--gold-light);
     border-radius: 50%;
-    border: 1px solid rgba(216,179,106,.4);
   }
 
   .percentage {
-    font-size: 3.7rem;
-    font-weight: 900;
-    color: var(--gold);
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    font-family: Georgia, serif;
+    font-size: 3.4rem;
+    color: var(--gold);
   }
 
   .result h2 {
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    margin-bottom: 20px;
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 18px;
   }
 
   .result-message {
-    color: white;
-    font-size: 1.2rem;
-    line-height: 1.7;
-    max-width: 650px;
+    max-width: 600px;
     margin: 0 auto;
+    color: #4f4c46;
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .result-message strong {
+    color: var(--gold);
   }
 
   .stamp {
     display: inline-block;
-    margin-top: 25px;
-    padding: 8px 14px;
-    border: 1px solid var(--green2);
-    border-radius: 99px;
-    color: #bfe4cf;
-    background: rgba(79,143,112,.12);
-    font-size: .8rem;
-    letter-spacing: 1px;
+    margin-top: 24px;
+    padding: 7px 13px;
+    border: 1px solid var(--gold-light);
+    color: var(--gold);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
+  /* =========================
+     HIDDEN
+     ========================= */
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* =========================
+     MOBILE
+     ========================= */
+
   @media (max-width: 600px) {
+
     .app {
-      padding-top: 24px;
+      width: min(100% - 20px, 820px);
+      padding-top: 25px;
+    }
+
+    header {
+      padding-bottom: 27px;
+    }
+
+    h1 {
+      letter-spacing: -1px;
     }
 
     .card {
-      border-radius: 18px;
+      padding: 22px 18px;
+      border-radius: 6px;
+    }
+
+    .part-title {
+      gap: 12px;
+      padding-bottom: 21px;
+    }
+
+    .part-number {
+      width: 34px;
+      height: 34px;
+      flex-basis: 34px;
+    }
+
+    .question {
+      padding: 20px 0;
+    }
+
+    .buttons {
+      flex-direction: column-reverse;
     }
 
     .buttons button {
       width: 100%;
+    }
+
+    .result-ring {
+      width: 155px;
+      height: 155px;
+    }
+
+    .percentage {
+      font-size: 2.9rem;
     }
   }
 </style>
@@ -400,12 +513,6 @@
     <h1>Der ultimative Test für Valentina & Tobi</h1>
   </header>
 
-
-  <!-- =========================================================
-       TEIL 1 – TOBIAS
-       FRAGEN KÖNNEN HIER EINFACH GELÖSCHT ODER ERGÄNZT WERDEN.
-       ========================================================= -->
-
   <div class="progress-wrap">
     <div class="progress-info">
       <span id="progressLabel">Teil 1 von 2</span>
@@ -416,7 +523,6 @@
       <div class="progress-bar" id="progressBar"></div>
     </div>
   </div>
-
 
   <section class="card" id="part1">
 
@@ -435,11 +541,6 @@
 
   </section>
 
-
-  <!-- =========================================================
-       TEIL 2 – VALENTINA
-       FRAGEN KÖNNEN HIER EINFACH GELÖSCHT ODER ERGÄNZT WERDEN.
-       ========================================================= -->
 
   <section class="card hidden" id="part2">
 
@@ -465,10 +566,6 @@
   </section>
 
 
-  <!-- =========================================================
-       ANALYSE
-       ========================================================= -->
-
   <section class="card hidden" id="analysis">
 
     <div class="analysis">
@@ -486,20 +583,14 @@
   </section>
 
 
-  <!-- =========================================================
-       ERGEBNIS
-       ========================================================= -->
-
   <section class="card hidden" id="result">
 
     <div class="result">
 
       <div class="result-ring">
-
         <div class="percentage">
           100%
         </div>
-
       </div>
 
       <h2>
@@ -507,7 +598,7 @@
       </h2>
 
       <p class="result-message">
-        Du bist zu <strong style="color: var(--gold);">100 %</strong>
+        Du bist zu <strong>100 %</strong>
         mit Valentina kompatibel.
         <br><br>
         Dir ist es nun offiziell erlaubt,
@@ -534,22 +625,6 @@
 
 
 <script>
-
-/* ================================================================
-   FRAGEN ÜBER TOBI
-   ----------------------------------------------------------------
-   Wenn du eine Frage löschen willst, lösche einfach den jeweiligen
-   Block zwischen { und }.
-
-   Beispiel:
-
-   {
-     type: "text",
-     question: "Deine Frage?",
-     placeholder: "Deine Antwort"
-   },
-
-   ================================================================ */
 
 const tobiasQuestions = [
 
@@ -603,10 +678,6 @@ const tobiasQuestions = [
 
 ];
 
-
-/* ================================================================
-   FRAGEN ÜBER VALENTINA
-   ================================================================ */
 
 const valentinaQuestions = [
 
@@ -693,11 +764,6 @@ const valentinaQuestions = [
 ];
 
 
-/* ================================================================
-   AB HIER MUSS NORMALERWEISE NICHTS GEÄNDERT WERDEN.
-   ================================================================ */
-
-
 function renderQuestions(containerId, questions, prefix) {
 
   const container = document.getElementById(containerId);
@@ -705,12 +771,9 @@ function renderQuestions(containerId, questions, prefix) {
   questions.forEach((q, index) => {
 
     const wrapper = document.createElement("div");
-
     wrapper.className = "question";
 
-
     const title = document.createElement("label");
-
     title.className = "question-title";
 
     title.innerHTML =
@@ -718,13 +781,10 @@ function renderQuestions(containerId, questions, prefix) {
 
     wrapper.appendChild(title);
 
-
     if (q.type === "choice") {
 
       const options = document.createElement("div");
-
       options.className = "options";
-
 
       q.options.forEach((option, optionIndex) => {
 
@@ -772,13 +832,10 @@ function renderQuestions(containerId, questions, prefix) {
         `${prefix}-${index}`;
 
       wrapper.appendChild(input);
-
     }
 
     container.appendChild(wrapper);
-
   });
-
 }
 
 
@@ -795,10 +852,6 @@ renderQuestions(
   "valentina"
 );
 
-
-/* ================================================================
-   TEIL 1 → TEIL 2
-   ================================================================ */
 
 function goToPart2() {
 
@@ -826,13 +879,8 @@ function goToPart2() {
     top: 0,
     behavior: "smooth"
   });
-
 }
 
-
-/* ================================================================
-   ZURÜCK ZU TEIL 1
-   ================================================================ */
 
 function goToPart1() {
 
@@ -860,16 +908,8 @@ function goToPart1() {
     top: 0,
     behavior: "smooth"
   });
-
 }
 
-
-/* ================================================================
-   KOMPATIBILITÄTSBERECHNUNG
-   ----------------------------------------------------------------
-   Die Antworten werden NICHT bewertet.
-   Das Ergebnis ist immer 100 %.
-   ================================================================ */
 
 function startAnalysis() {
 
